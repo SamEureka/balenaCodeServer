@@ -1,7 +1,23 @@
-# balenaCodeServer
+# <img src="logo.png" alt="vs code logo" width="60" /> balenaCodeServer
 
-***This Works***
+balenaCodeServer is a free Visual Studio Code based IDE that runs in your browser, served from your Raspberry Pi!
 
+Based on the [linuxserver.io](https://github.com/linuxserver/docker-code-server) code-server Docker image.
+
+Includes the [ZSH Docker Mod](https://github.com/linuxserver/docker-mods/tree/code-server-zsh) Which adds Oh-My-Zsh to your terminal. (Just type `zsh` in the terminal to start using zsh instead of the default bash shell)
+
+---
+
+### Equipment Needed:
+* Raspberry Pi (tested on Pi3 B+ and Pi4)
+---
+### Install
+Running this project is as simple as deploying it to a balenaCloud application. You can deploy it in one click by using the button below:
+
+[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/SamEureka/balenaCodeServer)
+
+---
+### Device Variables:
 |Env Variable / Default Value|Function|
 |---|---|
 |PUID=1000|for UserID - see below for explanation|
