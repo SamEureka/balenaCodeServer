@@ -19,7 +19,7 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 ---
 ### Using balenaCodeServer
 
-* Type <device-ip>:8443 in a browser window _(You can find your device IP address in the Balena Console)_
+* Type <device-ip\>:8443 in a browser window _(You can find your device IP address in the Balena Console)_
 * The default password for servers deployed with the balena deploy button is `b@13n4!` 
 * The default sudu password is `b@13n4!sudu`
 * else the password for both is `password`
