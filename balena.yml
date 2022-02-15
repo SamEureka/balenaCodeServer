@@ -12,7 +12,7 @@ assets:
     type: blob.asset
     data:
       url: >-
-        https://raw.githubusercontent.com/SamEureka/balenaCodeServer/main/logo.https://raw.githubusercontent.com/SamEureka/balenaCodeServer/main/logo.png
+        https://raw.githubusercontent.com/SamEureka/balenaCodeServer/main/logo.png
 data:
   applicationEnvironmentVariables:
     - TZ: America/Los_Angeles
