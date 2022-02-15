@@ -1,7 +1,7 @@
 version: "2"
 services:
   code-server:
-    image: lscr.io/linuxserver/code-server
+    image: lscr.io/linuxserver/code-server:4.0.2
     container_name: code-server
     environment:
       - PUID=1000
@@ -13,6 +13,7 @@ services:
       - SUDO_PASSWORD_HASH= #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
       - 'DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket'
+      - DOCKER_MODS=linuxserver/mods:code-server-zsh
     volumes:
       - "appdata:/config"
     ports:

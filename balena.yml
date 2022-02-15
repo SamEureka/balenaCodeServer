@@ -1,0 +1,27 @@
+name: balenaCodeServer
+type: sw.application
+description: >-
+  balenaCodeServer is a free Visual Studio Code based IDE that runs in your browser,
+  served from your Raspberry Pi!
+assets:
+  repository: 
+    type: blob.asset
+    data:
+      url: 'https://github.com/SamEureka/balenaCodeServer'
+  logo:
+    type: blob.asset
+    data:
+      url: >-
+        https://raw.githubusercontent.com/SamEureka/balenaCodeServer/main/logo.https://raw.githubusercontent.com/SamEureka/balenaCodeServer/main/logo.png
+data:
+  applicationEnvironmentVariables:
+    - TZ: America/Los_Angeles
+    - PASSWORD: b@13n4!
+    - SUDO_PASSWORD: b@13n4!sudo
+  defaultDeviceType: raspberrypi3
+  supportedDeviceTypes:
+    - raspberrypi3
+    - raspberrypi4-64
+    - fincm3
+    - intel-nuc
+version: 1.0.2
