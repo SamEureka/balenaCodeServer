@@ -29,6 +29,7 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 ### Device Variables:
 |Env Variable / Default Value|Function|
 |---|---|
+|PORT=8080|code-server port. Default is 8080. 
 |PUID=1000|for UserID|
 |PGID=1000|for GroupID|
 |TZ=Europe/London| Specify a timezone to use EG Europe/London, America/Los_Angeles|
