@@ -1,7 +1,7 @@
 version: "2"
 services:
   code-server:
-    image: lscr.io/linuxserver/code-server:4.0.2
+    build: ./code-server
     container_name: code-server
     network_mode: host
     environment:
