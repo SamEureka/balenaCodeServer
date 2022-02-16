@@ -9,7 +9,7 @@ post-provisioning: >-
   ---
   * Type `<device-ip>:8080` in a browser window _(You can find your device IP address in the Balena Console)_
   * The default password for servers deployed with the balena deploy button is `b@13n4!` 
-  * The default sudu password is `b@13n4!sudu`
+  * The default sudo password is `b@13n4!sudo`
   * else the password for both is `password`
 assets:
   repository: 
@@ -26,8 +26,10 @@ data:
     - TZ: America/Los_Angeles
     - PASSWORD: b@13n4!
     - SUDO_PASSWORD: b@13n4!sudo
-  defaultDeviceType: raspberrypi3
+    - SHELL: /usr/bin/zsh
+  defaultDeviceType: raspberrypi3-64
   supportedDeviceTypes:
     - raspberrypi3
+    - raspberrypi3-64
     - raspberrypi4-64
-version: 1.0.2
+version: 1.0.9
