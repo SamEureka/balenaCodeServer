@@ -6,11 +6,13 @@ description: >-
 post-provisioning: >-
   ### Using balenaCodeServer
 
-  ---
-  * Type `<device-ip>:8080` in a browser window _(You can find your device IP address in the Balena Console)_
-  * The default password for servers deployed with the balena deploy button is `b@13n4!` 
-  * The default sudo password is `b@13n4!sudo`
-  * else the password for both is `password`
+  - Type `<device-ip>:8080` in a browser window _(You can find your device IP address in the Balena Console)_
+
+  - The default password for servers deployed with the balena deploy button is `b@13n4!` 
+  
+  - The default sudo password is `b@13n4!sudo`
+  
+  - else the password for both is `password`
 assets:
   repository: 
     type: blob.asset
