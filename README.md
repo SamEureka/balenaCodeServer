@@ -23,6 +23,8 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 * The default password for servers deployed with the balena deploy button is `b@13n4!` 
 * The default sudo password is `b@13n4!sudo`
 * else the password for both is `password`
+
+* The GitHub and Balena CLIs are pre-installed. Authentication instructions [here](gh_balena_auth.md).
  
 
 ---
