@@ -26,6 +26,7 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 
 * The GitHub and Balena CLIs are pre-installed. Authentication instructions [here](gh_balena_auth.md).
  
+* If you get a node version warning when using the balena-cli, installing NVM and a supported version of Node will get rid of the warning. Here are some quick [install instructions](nvm_install.md)  
 
 ---
 ### Device Variables
