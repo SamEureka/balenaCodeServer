@@ -1,7 +1,7 @@
 <!-- Sam Dennon//2022 -->
 # GitHub & Balena CLI Authentication
 
-To use the gh and balena CLIs on balenaCodeServer (bcs) you will need to authenticate/login to the respective services using access tokens.
+To use the gh and balena CLIs on balenaCodeServer you will need to authenticate/login to the respective services using access tokens.
 
 This process is very similar in other services or CLIs that you might install on your own balenaCodeServer. I'll provide basic instructions here and links to the documentation if you want to take a deeper dive.
 
@@ -15,7 +15,7 @@ This process is very similar in other services or CLIs that you might install on
 * Select an expiration time or make it perpetual. Do you want to go through this process again in 30-90 days? If not select `does not expire`
 * Select the accesses you would like to have in balenaCodeServer. Make sure you understand what you are granting here. Read the help in the top right corner to understand what you are granting.
 * Generate the token.
-* IMPORTANT! One the next screen you will see your new token. It will look like this: `ghp_dPk94FWALIy1wNFeAsIkuwmOuMR3PB3WcjQW` (not a real token!) Make sure you copy it before leaving the page. It will only be shown ONCE! 
+* IMPORTANT! On the next screen you will see your new token. It will look like this: `ghp_dPk94FWALIy1wNFeAsIkuwmOuMR3PB3WcjQW` (not a real token!) Make sure you copy it before leaving the page. It will only be shown ONCE! 
 
 ### On balenaCodeServer
 * Open a new Terminal (Ctrl+Shift+`)
