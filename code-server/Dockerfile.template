@@ -4,16 +4,26 @@
 # Base Image
 FROM lscr.io/linuxserver/code-server:4.0.2
 
+# Versions
+ENV NVM_VERSION=v0.38.0
+ENV NODE_VERSION=v12.22.10
+ENV BALENA_CLI_VERSION=13.1.13
+
 # Install the repo cert and install gh with some dependencies required by Balena CLI 
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+  | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
   | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 RUN apt-get update && apt-get install -y make g++ gh python3
 
-RUN touch ~/.bashrc && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-RUN \
-  . ~/.bashrc && nvm install v12.22.10 \
-  && npm install balena-cli@13.1.13 --global --production --unsafe-perm
-RUN \
-  cp ~/.bashrc ~/.zshrc \
-  && chown -R abc:abc /config
+# Install nvm and then balena-cli (we need to config zsh later. will work in bash)
+RUN touch ~/.bashrc && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
+RUN . ~/.bashrc && nvm install ${NODE_VERSION} \
+  && npm install balena-cli@${BALENA_CLI_VERSION} --global \
+  --production --unsafe-perm
+
+# Change ownership on the files in /config to stop permission issues later
+RUN chown -R abc:abc /config
+
+# Move cont-init.d stuff
+COPY root/ /
