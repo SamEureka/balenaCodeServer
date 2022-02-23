@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-if [ -f /config/.zshrc ]; then
-  echo "export NVM_DIR=~/.nvm" >> /config/.zshrc
-  echo "[ -s '$NVM_DIR/nvm.sh' ] && . '$NVM_DIR/nvm.sh'" >> /
