@@ -5,8 +5,15 @@
 FROM lscr.io/linuxserver/code-server:4.0.2
 
 # Install the repo cert and install gh with some dependencies required by Balena CLI 
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-RUN apt-get update && apt-get install -y make g++ gh
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+  | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+RUN apt-get update && apt-get install -y make g++ gh python3
 
-# Build/install balena-cli 
-RUN npm install balena-cli --global --production --unsafe-perm
+RUN touch ~/.bashrc && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+RUN \
+  . ~/.bashrc && nvm install v12.22.10 \
+  && npm install balena-cli@13.1.13 --global --production --unsafe-perm
+RUN \
+  cp ~/.bashrc ~/.zshrc \
+  && chown -R abc:abc /config
