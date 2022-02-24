@@ -25,8 +25,9 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 * else the password for both is `password`
 
 * The GitHub and Balena CLIs are pre-installed. Authentication instructions [here](gh_balena_auth.md).
- 
-* If you get a node version warning when using the balena-cli, installing NVM and a supported version of Node will get rid of the warning. Here are some quick [install instructions](nvm_install.md)  
+
+<!-- This was fixed in https://github.com/SamEureka/balenaCodeServer/pull/12/commits/7145d3db90a1238aa200d451d47e337b08049d0f -->
+<!-- * If you get a node version warning when using the balena-cli, installing NVM and a supported version of Node will get rid of the warning. Here are some quick [install instructions](nvm_install.md) --> 
 
 ---
 ### Device Variables
