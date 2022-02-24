@@ -2,10 +2,10 @@
 
 if [ -e /config/.zshrc ]
 then
-  echo "Add NVM path to .zshrc"
-  sed -ie '$a # NVM Path' /config/.zshrc
-  sed -ie '$a export NVM_DIR=~/.nvm' /config/.zshrc
-  sed -ie '$a [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' /config/.zshrc
+  echo "Check NVM path, add to .zshrc if needed."
+  grep -qxF 'export NVM_DIR="$HOME/.nvm"' /config/.zshrc || echo 'export NVM_DIR="$HOME/.nvm"' >> /config/.zshrc
+  grep -qxF '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm' /config/.zshrc || echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm' >> /config/.zshrc
+  grep -qxF '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' /config/.zshrc || echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> /config/.zshrc
 else
   echo "No config needed, zsh is not installed"
 fi
