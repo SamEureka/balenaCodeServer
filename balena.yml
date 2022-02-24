@@ -1,4 +1,5 @@
 name: balenaCodeServer
+joinable: false
 type: sw.application
 description: >-
   balenaCodeServer is a free Visual Studio Code based IDE that runs in your browser,
