@@ -27,3 +27,8 @@ RUN chown -R abc:abc /config
 
 # Move cont-init.d stuff
 COPY root/ /
+
+# Move font files
+RUN mkdir ~/.font
+COPY font/ ~/.font
+RUN chown -R abc:abc ~/.font
