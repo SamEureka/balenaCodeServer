@@ -36,6 +36,7 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 |PORT=8080|code-server port. Default is 8080. 
 |PUID=1000|for UserID|
 |PGID=1000|for GroupID|
+|GH_TOKEN|Populate with GitHub token from [tokens](https://github.com/settings/tokens) page to automate GitHub CLI authentication.|
 |SHELL=/usr/bin/zsh|Sets the default terminal shell to ZSH. To use BASH change to '/bin/bash'
 |TZ=Europe/London| Specify a timezone to use EG Europe/London, America/Los_Angeles|
 |PASSWORD=password|Optional web gui password, if PASSWORD or HASHED_PASSWORD is not provided, there will be no auth.|
