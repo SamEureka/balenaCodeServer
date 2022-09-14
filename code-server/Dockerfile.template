@@ -2,7 +2,7 @@
 # Sam Dennon//2022
 
 # Base Image
-FROM lscr.io/linuxserver/code-server:4.5.2
+FROM lscr.io/linuxserver/code-server:4.7.0
 
 # Versions
 ENV NVM_VERSION=v0.38.0

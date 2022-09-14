@@ -36,4 +36,4 @@ data:
     - raspberrypi3
     - raspberrypi3-64
     - raspberrypi4-64
-version: 4.5.2
+version: 4.7.0
