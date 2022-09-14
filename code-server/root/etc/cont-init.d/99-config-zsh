@@ -1,5 +1,8 @@
 #!/usr/bin/with-contenv bash
 
+## Configure NVM Path stuff
+## Sam Dennon//2022
+
 if [ -e /config/.zshrc ]
 then
   echo "Check NVM path, add to .zshrc if needed."
