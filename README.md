@@ -4,8 +4,11 @@ balenaCodeServer is a free Visual Studio Code based IDE that runs in your browse
 
 * Based on the [linuxserver.io](https://github.com/linuxserver/docker-code-server) code-server Docker image. (v4.7.0)
 
-* Includes the [ZSH Docker Mod](https://github.com/linuxserver/docker-mods/tree/code-server-zsh) Which adds Oh-My-Zsh to your terminal. 
-
+* Includes:
+    * [ZSH Docker Mod](https://github.com/linuxserver/docker-mods/tree/code-server-zsh) Which adds Oh-My-Zsh to your terminal. 
+    * [Python3 Docker Mod](https://github.com/linuxserver/docker-mods/tree/code-server-python3) Adding python3 and pip3 (call with `python` and `pip`).
+    * [NVM Docker Mod](https://github.com/linuxserver/docker-mods/tree/code-server-nvm) This mod adds Node Version Manager.
+    * [Docker-in-Docker Mod](https://github.com/linuxserver/docker-mods/tree/universal-docker-in-docker) Adds Docker-in-Docker (DIND). All docker images run inside the 'code-server' container, sandboxed from the host's docker environment. (*sudo required*)
 ---
 
 ### Equipment Needed
