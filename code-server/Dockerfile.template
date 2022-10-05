@@ -1,4 +1,4 @@
-# Install gh and balena CLIs + NVM
+# Install gh and balena CLIs
 # Sam Dennon//2022
 
 # Base Image
@@ -7,7 +7,7 @@ FROM lscr.io/linuxserver/code-server:4.7.0
 # Versions
 ENV BALENA_CLI_VERSION=v14.3.1
 
-# Install the repo cert and install gh with some dependencies required by Balena CLI 
+# Install the repo cert and install gh with some dependencies required by Balena CLI install 
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
@@ -22,7 +22,7 @@ RUN mkdir -p /config/.local/share/balena-cli ; \
   "https://github.com/balena-io/balena-cli/releases/download/${BALENA_CLI_VERSION}/balena-cli-${BALENA_CLI_VERSION}-linux-x64-standalone.zip"; \
   unzip -o /config/.local//share/balena-cli.zip -d /config/.local/share/ ; \
   rm /config/.local/share/balena-cli.zip ; \
-  echo "export PATH=${PATH}:/config/.local/share/balena-cli" >> /config/.zshrc
+  ln -s /config/.local/share/balena-cli/balena /usr/bin/balena
 
 # Change ownership on the files in /config to stop permission issues later
 RUN chown -R abc:abc /config
