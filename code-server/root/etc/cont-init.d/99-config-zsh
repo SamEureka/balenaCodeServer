@@ -9,9 +9,7 @@ then
   grep -qxF 'export NVM_DIR="$HOME/.nvm"' /config/.zshrc || echo 'export NVM_DIR="$HOME/.nvm"' >> /config/.zshrc
   grep -qxF '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm' /config/.zshrc || echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm' >> /config/.zshrc
   grep -qxF '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' /config/.zshrc || echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> /config/.zshrc
-  echo "Check balena-cli path, add to .zshrc if needed"
-  grep -qxF "export PATH=${PATH}:/config/.local/share/balena-cli" /config/.zshrc || echo "export PATH=${PATH}:/config/.local/share/balena-cli" >> /config/.zshrc
-
+  
 else
   echo "No config needed, zsh is not installed"
 fi
