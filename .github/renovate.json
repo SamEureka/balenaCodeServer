@@ -1,0 +1,20 @@
+{
+    "extends": ["config:base"],
+    "packageRules": [
+      {
+        "matchPackageNames": ["linuxserver/code-server"],
+        "matchBaseBranches": ["main"],
+        "postUpgradeTasks": {
+          "commands": [
+            "sed \"s|^version: .*$|version: $(npx -q -y -- semver -c -l {{{newVersion}}})|\" -i balena.yml"
+          ],
+          "fileFilters": ["balena.yml"],
+          "executionMode": "update"
+        }
+      },
+      {
+        "matchUpdateTypes": ["patch", "minor", "bump"],
+        "automerge": true
+      }
+    ]
+  }
