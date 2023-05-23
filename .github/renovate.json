@@ -19,6 +19,6 @@
   ],
   "docker": {
     "enabled": true,
-    "dockerfileExtensions": ["Dockerfile.template"]
+    "fileMatch": ["^Dockerfile\\.template$"]
   }
 }
