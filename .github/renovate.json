@@ -16,9 +16,5 @@
       "matchUpdateTypes": ["patch", "minor", "bump"],
       "automerge": true
     }
-  ],
-  "docker": {
-    "enabled": true,
-    "fileMatch": ["^Dockerfile\\.template$"]
-  }
+  ]
 }
