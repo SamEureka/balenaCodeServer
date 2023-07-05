@@ -1,5 +1,5 @@
 # Update 10/04/2022:
-## The install method of the balena-cli has be migrated away from npm in favor of the standalone ZIP release. This change was made to insure the most recent version was available and to remove any reliance on outdated versions of node.
+## The install method of the balena-cli has been migrated away from npm in favor of the standalone ZIP release. This change was made to insure the most recent version was available and to remove any reliance on outdated versions of node.
 
 ## //Sam
 
