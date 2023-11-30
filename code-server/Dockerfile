@@ -2,7 +2,7 @@
 # Sam Dennon//2022
 
 # Base Image
-FROM lscr.io/linuxserver/code-server:4.13.0
+FROM lscr.io/linuxserver/code-server:4.19.1
 
 # Versions
 ENV BALENA_CLI_VERSION=v14.5.12
