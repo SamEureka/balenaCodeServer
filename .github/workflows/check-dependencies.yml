@@ -59,31 +59,12 @@ jobs:
 
       - name: Create branch, commit, and push changes
         run: |
-          git checkout -b update-dependencies
+          commit_hash=$(git rev-parse HEAD)
+          branch_name="update-dependencies_$commit_hash"
+          gh repo create --source=main --branch=$branch_name
+          git checkout $branch_name
           git add ./code-server/Dockerfile balena.yml
           git commit -m "Update dependencies, I've got changes for you! :bomb:"
-          git push -u origin update-dependencies
-
-      - name: Open pull request
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { context, GitHub } = require('github-script');
-      
-            const github = new GitHub(token);
-            
-            const pulls = await github.pulls.list({ ...context.repo, state: 'open' });
-            const existingPR = pulls.data.find(pr => pr.head.ref === 'update-dependencies');
-            
-            if (!existingPR) {
-              await github.pulls.create({
-                ...context.repo,
-                title: 'Update dependencies',
-                head: 'update-dependencies',
-                base: 'main',
-                body: 'This pull request updates dependencies.',
-              });
-            }
-
-
+          gh pr create --base=main --head=$branch_name --title="Update dependencies" --body="This pull request updates dependencies. Check for :ant:"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
