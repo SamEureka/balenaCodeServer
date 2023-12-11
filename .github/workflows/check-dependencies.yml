@@ -58,48 +58,26 @@ jobs:
           fi
 
       - name: Open pull request
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            async function run() {
-              const commitHash = await github.repos.getCommit({
-                ...context.repo,
-                ref: context.sha
-              }).then(response => response.data.sha);
+        run: |
+          # Get the current commit hash
+          commit_hash=$(git rev-parse HEAD)
       
-              const branchName = `update-dependencies-${commitHash}`;
+          # Create a unique branch name
+          branch_name="update-dependencies_$commit_hash"
       
-              await github.repos.createOrUpdateFile({
-                ...context.repo,
-                path: '.github/workflows/balena.yml',
-                branch: branchName,
-                message: 'Create branch for dependencies update',
-                content: '',
-              });
+          # Create a new branch
+          git checkout -b $branch_name
       
-              await github.repos.createOrUpdateFile({
-                ...context.repo,
-                path: 'code-server/Dockerfile',
-                branch: branchName,
-                message: 'Create branch for dependencies update',
-                content: '',
-              });
+          # Add and commit changes
+          git add ./code-server/Dockerfile balena.yml
+          git commit -m "Update dependencies, I've got changes for you! :bomb:"
       
-              await github.git.createRef({
-                ...context.repo,
-                ref: `refs/heads/${branchName}`,
-                sha: commitHash,
-              });
+          # Push the branch to the remote repository
+          git push origin $branch_name
       
-              await github.pulls.create({
-                ...context.repo,
-                title: 'Update dependencies',
-                head: branchName,
-                base: 'main',
-                body: 'This pull request updates dependencies. Check for :ant:',
-              });
-            }
-      
-            run();
+          # Create a pull request using gh CLI
+          gh pr create --base main --head $branch_name --title "Update dependencies" --body "This pull request updates dependencies. Check for :ant:"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
