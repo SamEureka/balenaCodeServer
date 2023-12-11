@@ -1,11 +1,13 @@
 name: Check Dependencies
 
 on:
+  schedule:
+    - cron: '0 * * * *'  # Run every hour on the hour
   push:
     paths:
-      - 'Dockerfile'
-      - 'balena.yml'
-
+      - 'code-server/**'
+      - '*.yml'
+      
 jobs:
   check-dependencies:
     runs-on: ubuntu-latest
@@ -21,55 +23,54 @@ jobs:
 
       - name: Run script to check dependencies
         run: |
-          BALENA_CLI_VERSION=$(grep -oP 'ENV BALENA_CLI_VERSION=\K[^ ]+' Dockerfile)
-          CODE_SERVER_VERSION=$(grep -oP 'FROM lscr.io/linuxserver/code-server:\K[^ ]+' Dockerfile)
-          BALENA_YML_VERSION=$(grep -oP 'version: \K[^ ]+' balena.yml)
-          
+          BALENA_CLI_VERSION=$(grep -oP 'ENV BALENA_CLI_VERSION=\K[^ ]+' ./code-server/Dockerfile)
+          CODE_SERVER_VERSION=$(grep -oP 'FROM lscr.io/linuxserver/code-server:\K[^ ]+' ./code-server/Dockerfile)
+                    
           echo "Checking for updates..."
           echo "Current Balena CLI version: $BALENA_CLI_VERSION"
           echo "Current Code Server version: $CODE_SERVER_VERSION"
-          echo "Current Balena YAML version: $BALENA_YML_VERSION"
-
+          
           # Use GitHub API to get the latest release versions
           LATEST_BALENA_CLI_VERSION=$(curl -s https://api.github.com/repos/balena-io/balena-cli/releases/latest | jq -r '.tag_name')
           LATEST_CODE_SERVER_VERSION=$(curl -s https://api.github.com/repos/linuxserver/code-server/releases/latest | jq -r '.tag_name')
-          LATEST_BALENA_YML_VERSION=$(curl -s https://api.github.com/repos/SamEureka/balenaCodeServer/releases/latest | jq -r '.tag_name')
-          
+                    
           echo "Latest Balena CLI version: $LATEST_BALENA_CLI_VERSION"
           echo "Latest Code Server version: $LATEST_CODE_SERVER_VERSION"
-          echo "Latest Balena YAML version: $LATEST_BALENA_YML_VERSION"
-
+          
           # Compare versions and take actions
           if [ "$BALENA_CLI_VERSION" != "$LATEST_BALENA_CLI_VERSION" ]; then
             echo "Balena CLI update available!"
             # Update Balena CLI version in Dockerfile
-            sed -i "s/ENV BALENA_CLI_VERSION=$BALENA_CLI_VERSION/ENV BALENA_CLI_VERSION=$LATEST_BALENA_CLI_VERSION/" Dockerfile
+            sed -i "s/ENV BALENA_CLI_VERSION=$BALENA_CLI_VERSION/ENV BALENA_CLI_VERSION=$LATEST_BALENA_CLI_VERSION/" ./code-server/Dockerfile
           fi
 
           if [ "$CODE_SERVER_VERSION" != "$LATEST_CODE_SERVER_VERSION" ]; then
             echo "Code Server update available!"
             # Update Code Server version in Dockerfile
-            sed -i "s/FROM lscr.io\/linuxserver\/code-server:$CODE_SERVER_VERSION/FROM lscr.io\/linuxserver\/code-server:$LATEST_CODE_SERVER_VERSION/" Dockerfile
+            sed -i "s/FROM lscr.io\/linuxserver\/code-server:$CODE_SERVER_VERSION/FROM lscr.io\/linuxserver\/code-server:$LATEST_CODE_SERVER_VERSION/" ./code-server/Dockerfile
           fi
 
-          if [ "$BALENA_YML_VERSION" != "$LATEST_BALENA_YML_VERSION" ]; then
+          if [ "$CODE_SERVER_VERSION" != "$LATEST_CODE_SERVER_VERSION" ]; then
             echo "Balena YAML update available!"
             # Update version in balena.yml
-            sed -i "s/version: $BALENA_YML_VERSION/version: $LATEST_BALENA_YML_VERSION/" balena.yml
+            sed -i "s/version: $CODE_SERVER_VERSION/version: $LATEST_CODE_SERVER_VERSION/" balena.yml
           fi
 
       - name: Create branch, commit, and push changes
         run: |
           git checkout -b update-dependencies
           git add Dockerfile balena.yml
-          git commit -m "Update dependencies"
+          git commit -m "Update dependencies, I've got changes for you! :bomb:"
           git push -u origin update-dependencies
 
       - name: Open pull request
         uses: actions/github-script@v5
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const github = context.repo;
+            const octokit = new github.GitHub(token);
+            
             const pulls = await octokit.pulls.list({ ...github, state: 'open' });
             const existingPR = pulls.data.find(pr => pr.head.ref === 'update-dependencies');
             
@@ -82,3 +83,4 @@ jobs:
                 body: 'This pull request updates dependencies.',
               });
             }
+
