@@ -3,10 +3,10 @@
 # Dependabot, do not fail me!
 
 # Base Image
-FROM lscr.io/linuxserver/code-server:4.13.0
+FROM lscr.io/linuxserver/code-server:4.19.1-ls185
 
 # Versions
-ENV BALENA_CLI_VERSION=v14.5.12
+ENV BALENA_CLI_VERSION=v17.4.6
 
 # Install the repo cert and install gh with some dependencies required by Balena CLI install 
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
