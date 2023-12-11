@@ -65,23 +65,11 @@ jobs:
           script: |
             commit_hash=$(git rev-parse HEAD)
             branch_name="update-dependencies_$commit_hash"
-            
-            # Create the repository
             gh repo create --source=main --name=$branch_name
-            
-            # Checkout the new branch
             git checkout -b $branch_name
-            
-            # Add files to the branch
             git add ./code-server/Dockerfile balena.yml
-            
-            # Commit changes
             git commit -m "Update dependencies, I've got changes for you! :bomb:"
-            
-            # Push the branch to the new repository
             git push origin $branch_name
-            
-            # Create a pull request
             gh pr create --base=main --head=$branch_name --title="Update dependencies" --body="This pull request updates dependencies. Check for :ant:"
 
 
