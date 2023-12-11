@@ -56,21 +56,51 @@ jobs:
             # Update version in balena.yml
             sed -i "s/version: $CODE_SERVER_VERSION/version: $LATEST_CODE_SERVER_VERSION/" balena.yml
           fi
-
-
+          
       - name: Open pull request
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            commit_hash=$(git rev-parse HEAD)
-            branch_name="update-dependencies_$commit_hash"
-            gh repo create --source=main --name=$branch_name
-            git checkout -b $branch_name
-            git add ./code-server/Dockerfile balena.yml
-            git commit -m "Update dependencies, I've got changes for you! :bomb:"
-            git push origin $branch_name
-            gh pr create --base=main --head=$branch_name --title="Update dependencies" --body="This pull request updates dependencies. Check for :ant:"
-
-
-
+            const { context, github } = require('github-script');
+      
+            async function run() {
+              const commitHash = await github.repos.getCommit({
+                ...context.repo,
+                ref: context.sha
+              }).then(response => response.data.sha);
+      
+              const branchName = `update-dependencies-${commitHash}`;
+      
+              await github.repos.createOrUpdateFile({
+                ...context.repo,
+                path: '.github/workflows/balena.yml',
+                branch: branchName,
+                message: 'Create branch for dependencies update',
+                content: '',
+              });
+      
+              await github.repos.createOrUpdateFile({
+                ...context.repo,
+                path: 'code-server/Dockerfile',
+                branch: branchName,
+                message: 'Create branch for dependencies update',
+                content: '',
+              });
+      
+              await github.git.createRef({
+                ...context.repo,
+                ref: `refs/heads/${branchName}`,
+                sha: commitHash,
+              });
+      
+              await github.pulls.create({
+                ...context.repo,
+                title: 'Update dependencies',
+                head: branchName,
+                base: 'main',
+                body: 'This pull request updates dependencies. Check for :ant:',
+              });
+            }
+      
+            run();
