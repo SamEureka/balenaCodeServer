@@ -11,5 +11,12 @@
       "updateTypes": ["github-releases"],
       "enabled": true
     }
-  ]
+  ],
+  "packageFiles": ["Dockerfile", "balena.yml"],
+  "packageRules": [
+    {
+      "updateTypes": ["docker", "balena"]
+    }
+  ],
+  "schedule": ["daily"]
 }
