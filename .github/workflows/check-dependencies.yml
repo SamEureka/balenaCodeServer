@@ -32,7 +32,7 @@ jobs:
           
           # Use GitHub API to get the latest release versions
           LATEST_BALENA_CLI_VERSION=$(curl -s https://api.github.com/repos/balena-io/balena-cli/releases/latest | jq -r '.tag_name')
-          LATEST_CODE_SERVER_VERSION=$(curl -s https://api.github.com/repos/linuxserver/code-server/releases/latest | jq -r '.tag_name')
+          LATEST_CODE_SERVER_VERSION=$(curl -s https://api.github.com/repos/linuxserver/docker-code-server/releases/latest | jq -r '.tag_name')
                     
           echo "Latest Balena CLI version: $LATEST_BALENA_CLI_VERSION"
           echo "Latest Code Server version: $LATEST_CODE_SERVER_VERSION"
@@ -59,7 +59,7 @@ jobs:
       - name: Create branch, commit, and push changes
         run: |
           git checkout -b update-dependencies
-          git add Dockerfile balena.yml
+          git add ./code-server/Dockerfile balena.yml
           git commit -m "Update dependencies, I've got changes for you! :bomb:"
           git push -u origin update-dependencies
 
