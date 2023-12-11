@@ -17,6 +17,5 @@
     {
       "updateTypes": ["docker", "balena"]
     }
-  ],
-  "schedule": ["daily"]
+  ]
 }
