@@ -56,14 +56,12 @@ jobs:
             # Update version in balena.yml
             sed -i "s/version: $CODE_SERVER_VERSION/version: $LATEST_CODE_SERVER_VERSION/" balena.yml
           fi
-          
+
       - name: Open pull request
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { context, github } = require('github-script');
-      
             async function run() {
               const commitHash = await github.repos.getCommit({
                 ...context.repo,
@@ -104,3 +102,4 @@ jobs:
             }
       
             run();
+
