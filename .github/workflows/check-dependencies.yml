@@ -86,27 +86,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
-      # - name: Open pull request
-      #   run: |
-      #     # Get the current commit hash
-      #     commit_hash=$(git rev-parse HEAD)
-      
-      #     # Create a unique branch name
-      #     branch_name="update-dependencies_$commit_hash"
-      
-      #     # Create a new branch
-      #     git checkout -b $branch_name
-      
-      #     # Add and commit changes
-      #     git add ./code-server/Dockerfile balena.yml
-      #     git commit -m "Update dependencies, I've got changes for you! :bomb:"
-      
-      #     # Push the branch to the remote repository
-      #     git push origin $branch_name
-      
-      #     # Create a pull request using gh CLI
-      #     gh pr create --base main --head $branch_name --title "Update dependencies" --body "This pull request updates dependencies. Check for :ant:"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
