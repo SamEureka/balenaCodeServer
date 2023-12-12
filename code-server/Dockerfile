@@ -1,6 +1,5 @@
 # Install gh and balena CLIs
 # Sam Dennon//2023
-# Dependabot, do not fail me!
 
 # Base Image
 FROM lscr.io/linuxserver/code-server:4.19.1-ls185
