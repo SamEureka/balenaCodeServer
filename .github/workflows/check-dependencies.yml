@@ -48,13 +48,18 @@ jobs:
           if [ "$CODE_SERVER_VERSION" != "$LATEST_CODE_SERVER_VERSION" ]; then
             echo "Code Server update available!"
             # Update Code Server version in Dockerfile
-            sed -i "s/FROM lscr.io\/linuxserver\/code-server:$CODE_SERVER_VERSION/FROM lscr.io\/linuxserver\/code-server:$LATEST_CODE_SERVER_VERSION/" ./code-server/Dockerfile
+            sed -i "s/FROM linuxserver\/code-server:$CODE_SERVER_VERSION/FROM linuxserver\/code-server:$LATEST_CODE_SERVER_VERSION/" ./code-server/Dockerfile
           fi
 
           if [ "$CODE_SERVER_VERSION" != "$LATEST_CODE_SERVER_VERSION" ]; then
             echo "Balena YAML update available!"
             # Update version in balena.yml
             sed -i "s/version: $CODE_SERVER_VERSION/version: $LATEST_CODE_SERVER_VERSION/" balena.yml
+          fi
+
+          if [ "$CODE_SERVER_VERSION" != "$LATEST_CODE_SERVER_VERSION" ]; then
+            echo "Updating version in README.md"
+            sed -i "s/\(code-server Docker image. (v\)\([^ ]*\)\(.*\))/\1$LATEST_CODE_SERVER_VERSION\3/" README.md
           fi
 
       - name: Create branch, commit, and push changes

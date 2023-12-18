@@ -2,7 +2,7 @@
 # Sam Dennon//2023
 
 # Base Image
-FROM lscr.io/linuxserver/code-server:4.19.1-ls186
+FROM linuxserver/code-server:4.19.1-ls186
 
 # Versions
 ENV BALENA_CLI_VERSION=v17.4.6
