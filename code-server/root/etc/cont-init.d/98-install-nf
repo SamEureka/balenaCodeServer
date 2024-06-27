@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bash
 
 ## Sam Dennon // June2024
 
@@ -10,7 +10,7 @@ font_urls=(
 )
 
 # Define font directory
-font_dir="$HOME/.local/share/fonts"
+font_dir="/config/.local/share/fonts"
 
 # Check font directory
 if [ ! -d "$font_dir" ]; then

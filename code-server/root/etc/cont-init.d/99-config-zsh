@@ -1,7 +1,29 @@
 #!/usr/bin/with-contenv bash
 
 ## Configure NVM Path stuff
+## Config p10k, auto-suggest, & syntax-hightlighting
 ## Sam Dennon//2022
+## Updated //2024
+
+# Define directories for each repo
+powerlevel10k_dir="/config/.zsh/powerlevel10k"
+zsh_autosuggestions_dir="/config/.zsh/zsh-autosuggestions"
+zsh_syntax_highlighting_dir="/config/.zsh/zsh-syntax-highlighting"
+
+# Clone repositories only if their directories don't exist
+if [ ! -d "$powerlevel10k_dir" ]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$powerlevel10k_dir"
+fi
+
+if [ ! -d "$zsh_autosuggestions_dir" ]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$zsh_autosuggestions_dir"
+fi
+
+if [ ! -d "$zsh_syntax_highlighting_dir" ]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting "$zsh_syntax_highlighting_dir"
+fi
+
+echo "Repos cloned successfully!"
 
 if [ -e /config/.zshrc ]
 then
@@ -10,6 +32,12 @@ then
   grep -qxF '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm' /config/.zshrc || echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm' >> /config/.zshrc
   grep -qxF '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' /config/.zshrc || echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> /config/.zshrc
   
+  for line in "source /config/.zsh/powerlevel10k/powerlevel10k.zsh-theme" "source /config/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" "source /config/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" "HISTFILE=/config/.zsh_history" "HISTSIZE=10000" "SAVEHIST=10000" "setopt appendhistory"; do
+  if ! grep -q "$line" /config/.zshrc; then
+    echo "$line" >> /config/.zshrc
+  fi
+done
+
 else
   echo "No config needed, zsh is not installed"
 fi
