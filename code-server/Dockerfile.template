@@ -2,10 +2,10 @@
 # Sam Dennon//2023
 
 # Base Image
-FROM linuxserver/code-server:4.19.1-ls186
+FROM linuxserver/code-server:4.90.3
 
 # Versions
-ENV BALENA_CLI_VERSION=v17.4.6
+ENV BALENA_CLI_VERSION=v18.2.10
 
 # Install the repo cert and install gh with some dependencies required by Balena CLI install 
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
