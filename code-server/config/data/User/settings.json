@@ -1,0 +1,7 @@
+{
+    "window.menuBarVisibility": "classic",
+    "workbench.colorTheme": "Ayu Mirage Bordered",
+    "editor.fontFamily": "VictorMono Nerd Font Mono",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16
+}
