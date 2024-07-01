@@ -15,6 +15,10 @@ balenaCodeServer is a free Visual Studio Code based IDE that runs in your browse
 * Raspberry Pi or x86_64 based PC (tested on Pi3 B+, Pi4, and Generic x86_64 (Lenovo M910q))
 ---
 ### Install
+
+> [!IMPORTANT]
+> On an undervolted Raspberry Pi 3B+ the first boot takes a really long time... I'm talking several minutes! So watch the logs (balena.io dashboard) and be patient.
+
 Running this project is as simple as deploying it to a balenaCloud application. You can deploy it in one click by using the button below:
 
 [![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/SamEureka/balenaCodeServer)

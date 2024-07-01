@@ -14,7 +14,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
 # Install some stuff for the next step
-RUN apt-get update && apt-get install -y wget unzip gh
+RUN apt-get update && apt-get install -y wget unzip gh fontconfig
 
 # Install balena-cli
 RUN mkdir -p /config/.local/share/balena-cli ; \
@@ -27,5 +27,12 @@ RUN mkdir -p /config/.local/share/balena-cli ; \
 # Change ownership on the files in /config to stop permission issues later
 RUN chown -R abc:abc /config
 
+# copy settings
+COPY config/.local/share/fonts/*.ttf /config/.local/share/fonts/
+COPY config/.local/share/fonts/*.otf /config/.local/share/fonts/
+COPY config/data/User/settings.json /config/data/User/
+
 # Move cont-init.d stuff
 COPY root/ /
+
+RUN fc-cache -frv
