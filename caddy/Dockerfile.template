@@ -1,0 +1,51 @@
+## balenaCaddy/caddy/Dockerfile.template ##
+## Sam Dennon//2022 ##
+
+FROM balenalib/%%BALENA_ARCH%%-alpine-golang:1.18-3.16-build AS build
+
+## Set the ARGS again because ARG scope
+ARG DNS_PROVIDER
+ARG CADDY_VERSION
+
+## Clone and build Caddy
+WORKDIR /caddy
+RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+
+## Do the Cddy build now ->
+RUN xcaddy build $CADDY_VERSION \
+    --with github.com/caddy-dns/$DNS_PROVIDER
+
+## Switch to the run image
+FROM balenalib/%%BALENA_ARCH%%-alpine-golang:1.18-3.16-run
+
+## Install required packages 
+RUN apk add --no-cache \
+        bash \
+        python3 \
+        curl \
+        dbus \
+        findutils \
+        tar \
+        udev \
+        gnupg \
+        ca-certificates \
+        mailcap \ 
+        wget
+
+## Create required directories
+RUN set -ex; \
+        mkdir -p /config/caddy \
+            /data/caddy \
+            /etc/caddy \
+            /usr/share/caddy; \
+            wget --quiet -O /etc/caddy/Caddyfile "https://raw.githubusercontent.com/caddyserver/dist/master/config/Caddyfile"; \
+            wget --quiet -O /usr/share/caddy/index.html "https://raw.githubusercontent.com/caddyserver/dist/master/welcome/index.html"
+
+
+## Netgo config
+#RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
+
+## Copy all that build work and the config script over ->
+COPY ./caddy-config.py /caddy-config.py
+COPY --from=build /caddy/caddy /usr/bin/caddy
+CMD ["python3", "/caddy-config.py"]

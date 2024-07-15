@@ -5,7 +5,7 @@
 FROM linuxserver/code-server:4.90.3
 
 # Versions
-ENV BALENA_CLI_VERSION=v18.2.10
+ENV BALENA_CLI_VERSION=v18.2.17
 
 # Install the repo cert and install gh with some dependencies required by Balena CLI install 
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
@@ -16,10 +16,12 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 # Install some stuff for the next step
 RUN apt-get update && apt-get install -y wget unzip gh fontconfig
 
+ARG TARGETARCH
+
 # Install balena-cli
 RUN mkdir -p /config/.local/share/balena-cli ; \
   wget -qO /config/.local/share/balena-cli.zip \
-  "https://github.com/balena-io/balena-cli/releases/download/${BALENA_CLI_VERSION}/balena-cli-${BALENA_CLI_VERSION}-linux-x64-standalone.zip"; \
+  "https://github.com/balena-io/balena-cli/releases/download/${BALENA_CLI_VERSION}/balena-cli-${BALENA_CLI_VERSION}-linux-arm64-standalone.zip"; \
   unzip -o /config/.local//share/balena-cli.zip -d /config/.local/share/ ; \
   rm /config/.local/share/balena-cli.zip ; \
   ln -s /config/.local/share/balena-cli/balena /usr/bin/balena

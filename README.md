@@ -37,7 +37,7 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 <!-- * If you get a node version warning when using the balena-cli, installing NVM and a supported version of Node will get rid of the warning. Here are some quick [install instructions](nvm_install.md) --> 
 
 ---
-### Device Variables
+### Code-Server Device Variables
 |Env Variable|Default Value|Function|
 |---|---|---|
 |PORT|8080|code-server port. Default is 8080. The service does not run as 'root'. You cannot set host port <= 1024.|  
@@ -52,3 +52,11 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 |SUDO_PASSWORD_HASH| |Optionally set sudo password via hash (takes priority over SUDO_PASSWORD var). Format is $type$salt$hashed.|
 |PROXY_DOMAIN|code-server.my.domain|If this optional variable is set, this domain will be proxied for subdomain proxying.|
 |DEFAULT_WORKSPACE|/config/workspace|If this optional variable is set, code-server will open this directory by default|
+
+### Caddy-Reverso Device Variables
+|Name|Value|Notes|
+|---|---|---|
+|HOST_\<number>| \<host>\|\<domain>\|\<ip>\|\<port>\|\<wildcard (true or false)>|The name must start with `HOST_` and have a number. Example name: `HOST_13` The values must separated with the pipe symbol `\|`. Example value: `nodered\|awesomedomain.com\|192.168.0.13\|4200\|true` If you aren't sure why/if you need a wildcard... set it to `false`|
+|DNS_PROVIDER|digitalocean, cloudflare, googleclouddns... etc|This is the value provided to the ACME DNS Challenge and is also used to build the DNS Provider module. It needs to be set in the [docker-compose.yml](./docker-compose.yml) and set as a device variable. Check the [DNS Provider module WIKI](https://caddy.community/t/how-to-use-dns-provider-modules-in-caddy-2/8148) for general information about how this works and to find out if your DNS provider is supported. [Quick Link: List of all Providers](https://github.com/orgs/caddy-dns/repositories?type=all)|
+|DNS_API_KEY|\<string of randomness>|See your DNS provider's doccumentation on how to create an API Key.|
+|DNS_EMAIL|sam@awesomedomain.com|This is OPTIONAL. This is the email address provided to the ACME DNS Challenge process. If you don't set an email variable you'll get a WARN in the logs but it will all still work.|

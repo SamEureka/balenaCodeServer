@@ -1,4 +1,10 @@
-version: "2"
+version: "2.4"
+
+volumes:
+  code-server:
+  caddy_data:
+  caddy_config:
+
 services:
   code-server:
     build: ./code-server
@@ -26,7 +32,28 @@ services:
       io.balena.features.dbus: 1
       io.balena.features.supervisor-api: 1
       io.balena.features.balena-socket: 1
-    # cap_add:
-    #   - CAP_NET_BIND_SERVICE # to allow port 80 binding **Not working, looking other methods
-volumes:
-  code-server:
+    command: --auth none --disable-telemetry
+
+  caddy:
+    build:
+      context: ./caddy
+      args:
+      - DNS_PROVIDER=digitalocean
+      - CADDY_VERSION=v2.5.2
+    environment:
+      - XDG_CONFIG_HOME=/config
+      - XDG_DATA_HOME=/data
+      - CADDY_VERSION=v2.5.2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    network_mode: host
+    privileged: true
+    labels:
+      io.balena.features.dbus: '1'
+      io.balena.features.supervisor-api: '1'
+      io.balena.features.balena-api: '1'
